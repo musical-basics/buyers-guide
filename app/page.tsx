@@ -31,7 +31,7 @@ const journeySteps = [
 ]
 
 export default function BuyersGuidePage() {
-  const [currentStep, setCurrentStep] = useState(0)
+  const [currentStep, setCurrentStep] = useState(1)
   const [profile, setProfile] = useState<UserProfile>({
     buyingFor: null,
     demographic: null,
@@ -185,7 +185,7 @@ export default function BuyersGuidePage() {
       {/* All content centered — max-w-4xl */}
 
       {/* Piano product showcase */}
-      <section className="relative w-full overflow-hidden bg-muted/50">
+      <section className="relative w-full overflow-hidden bg-muted">
         <div className="max-w-4xl mx-auto px-6 py-12">
           <div className="relative aspect-[21/9] rounded-2xl overflow-hidden shadow-2xl">
             <Image
@@ -230,7 +230,7 @@ export default function BuyersGuidePage() {
       {/* Questions and Info sections — alternating backgrounds per group */}
       {/* Q1 group — gray */}
       {currentStep >= 1 && (
-        <div className="bg-muted/50">
+        <div className="bg-muted">
           <QuestionOne
             selected={profile.buyingFor}
             onSelect={(value) => {
@@ -258,7 +258,7 @@ export default function BuyersGuidePage() {
 
       {/* Q3 group — gray */}
       {currentStep >= 3 && (
-        <div className="bg-muted/50">
+        <div className="bg-muted">
           <InfoSectionTwo demographic={profile.demographic} />
           <QuestionThree
             selected={profile.handSize}
@@ -287,7 +287,7 @@ export default function BuyersGuidePage() {
 
       {/* Recommendation — gray */}
       {currentStep >= 5 && (
-        <div className="bg-muted/50">
+        <div className="bg-muted">
           <RecommendationSection profile={profile} />
         </div>
       )}

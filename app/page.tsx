@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useTheme } from "next-themes"
+import Image from "next/image"
 import { Moon, Sun } from "lucide-react"
 import { HeroSection } from "@/components/buyers-guide/hero-section"
 import { QuestionOne } from "@/components/buyers-guide/question-one"
@@ -68,6 +69,26 @@ export default function BuyersGuidePage() {
       </div>
 
       <HeroSection onStart={startGuide} />
+
+      {/* Piano product showcase */}
+      <section className="relative w-full overflow-hidden bg-gradient-to-b from-background via-muted/30 to-background">
+        <div className="max-w-6xl mx-auto px-6 py-12">
+          <div className="relative aspect-[21/9] rounded-2xl overflow-hidden shadow-2xl">
+            <Image
+              src="/Piano Front 2.jpg"
+              alt="DreamPlay Piano with bench"
+              fill
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+            <div className="absolute bottom-6 left-6 right-6 text-white">
+              <p className="text-sm font-medium tracking-wide uppercase opacity-80">DreamPlay Pianos</p>
+              <p className="text-lg sm:text-xl font-semibold">Designed to fit your hands perfectly</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {currentStep >= 1 && (
         <QuestionOne

@@ -10,8 +10,8 @@ interface QuestionOneProps {
 
 export function QuestionOne({ selected, onSelect }: QuestionOneProps) {
   return (
-    <section id="question-1" className="py-20 px-6 bg-card border-t border-border">
-      <div className="max-w-3xl mx-auto">
+    <section id="question-1" className="py-20 px-6 border-t border-border">
+      <div className="max-w-4xl mx-auto">
         <div className="flex items-center gap-3 mb-4">
           <span className="flex items-center justify-center w-8 h-8 rounded-full bg-foreground text-background text-sm font-semibold">
             1

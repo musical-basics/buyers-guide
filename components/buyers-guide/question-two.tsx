@@ -10,10 +10,10 @@ interface QuestionTwoProps {
 
 export function QuestionTwo({ selected, buyingFor, onSelect }: QuestionTwoProps) {
   const isGift = buyingFor === "someone-else"
-  
+
   return (
-    <section id="question-2" className="py-20 px-6 bg-card border-t border-border">
-      <div className="max-w-3xl mx-auto">
+    <section id="question-2" className="py-20 px-6 border-t border-border">
+      <div className="max-w-4xl mx-auto">
         <div className="flex items-center gap-3 mb-4">
           <span className="flex items-center justify-center w-8 h-8 rounded-full bg-foreground text-background text-sm font-semibold">
             2
@@ -27,7 +27,7 @@ export function QuestionTwo({ selected, buyingFor, onSelect }: QuestionTwoProps)
           {isGift ? "Who will be playing?" : "Tell us about yourself"}
         </h2>
         <p className="text-muted-foreground text-lg mb-10">
-          {isGift 
+          {isGift
             ? "This helps us tailor our recommendations to the recipient."
             : "Different demographics have different typical hand sizes. This helps us guide you better."
           }

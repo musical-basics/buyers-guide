@@ -105,8 +105,8 @@ function HandSpanSliderCard({ stat, statLabel }: { stat: string; statLabel: stri
 export function InfoSectionTwo({ demographic }: InfoSectionTwoProps) {
   if (demographic === "adult-female") {
     return (
-      <section className="py-16 px-6 bg-muted/50">
-        <div className="max-w-5xl mx-auto">
+      <section className="py-16 px-6">
+        <div className="max-w-4xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h3 className="text-2xl sm:text-3xl font-semibold text-foreground mb-6">
@@ -137,8 +137,8 @@ export function InfoSectionTwo({ demographic }: InfoSectionTwoProps) {
 
   if (demographic === "adult-male") {
     return (
-      <section className="py-16 px-6 bg-muted/50">
-        <div className="max-w-5xl mx-auto">
+      <section className="py-16 px-6">
+        <div className="max-w-4xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h3 className="text-2xl sm:text-3xl font-semibold text-foreground mb-6">
@@ -168,8 +168,8 @@ export function InfoSectionTwo({ demographic }: InfoSectionTwoProps) {
 
   if (demographic === "child") {
     return (
-      <section className="py-16 px-6 bg-muted/50">
-        <div className="max-w-5xl mx-auto">
+      <section className="py-16 px-6">
+        <div className="max-w-4xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h3 className="text-2xl sm:text-3xl font-semibold text-foreground mb-6">

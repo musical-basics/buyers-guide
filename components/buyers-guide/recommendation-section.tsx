@@ -1,9 +1,25 @@
 "use client"
 
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { UserProfile } from "@/app/page"
 import { Check, ArrowRight, RefreshCw, Sparkles } from "lucide-react"
 import { cn } from "@/lib/utils"
+
+function getProductImage(model: string) {
+  switch (model) {
+    case "DS5.5":
+      return "/products/DS5.5-white.png"
+    case "DS6.0":
+      return "/products/DS6.0-black.png"
+    case "DS6.5":
+      return "/products/DS6.5-black.png"
+    case "DreamPlay Bundle":
+      return "/products/bundle.png"
+    default:
+      return "/products/DS6.0-black.png"
+  }
+}
 
 interface RecommendationSectionProps {
   profile: UserProfile
@@ -35,6 +51,32 @@ export function RecommendationSection({ profile }: RecommendationSectionProps) {
           model: "DreamPlay Bundle",
           name: "Complete Setup",
           reason: "Includes stand, bench, and sustain pedal—everything needed to start playing immediately",
+        },
+      }
+    }
+
+    // Adult woman recommendation — always DS6.0
+    if (demographic === "adult-female") {
+      return {
+        primary: "DS6.0",
+        primaryName: "15/16ths Size",
+        primaryDescription:
+          "The ideal fit for most women. Balanced spacing gives you more reach and control than standard keys while keeping a familiar feel.",
+        features: [
+          "Designed for women's hand proportions",
+          "Reach octaves and 9ths comfortably",
+          "88 fully weighted keys",
+          "Reduced strain and tension",
+        ],
+        alternative1: {
+          model: "DS5.5",
+          name: "7/8ths Size",
+          reason: "If you have particularly small hands (under 7\" span) and want the narrowest keys available",
+        },
+        alternative2: {
+          model: "DreamPlay Bundle",
+          name: "Complete Setup",
+          reason: "Save $600 with the bundle including stand, bench, and sustain pedal",
         },
       }
     }
@@ -121,7 +163,7 @@ export function RecommendationSection({ profile }: RecommendationSectionProps) {
 
   return (
     <section id="recommendation" className="py-20 px-6 bg-foreground text-background">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-background/10 text-background/80 text-sm font-medium">
@@ -138,6 +180,16 @@ export function RecommendationSection({ profile }: RecommendationSectionProps) {
 
         {/* Primary Recommendation Card */}
         <div className="bg-background text-foreground rounded-3xl p-8 md:p-12 mb-8">
+          {/* Product Image */}
+          <div className="relative w-full aspect-[16/7] mb-8 rounded-2xl overflow-hidden bg-muted">
+            <Image
+              src={getProductImage(recommendation.primary)}
+              alt={`DreamPlay ${recommendation.primary}`}
+              fill
+              className="object-contain p-4"
+            />
+          </div>
+
           <div className="flex flex-col lg:flex-row gap-8 items-start">
             <div className="flex-1">
               <div className="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded-full bg-accent/10 text-accent text-sm font-medium">
@@ -161,12 +213,16 @@ export function RecommendationSection({ profile }: RecommendationSectionProps) {
               </ul>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="rounded-full px-8">
-                  Reserve Now
-                  <ArrowRight className="ml-2 w-4 h-4" />
+                <Button size="lg" className="rounded-full px-8" asChild>
+                  <a href="https://www.dreamplaypianos.com/customize" target="_blank" rel="noopener noreferrer">
+                    Reserve Now
+                    <ArrowRight className="ml-2 w-4 h-4" />
+                  </a>
                 </Button>
-                <Button size="lg" variant="outline" className="rounded-full px-8">
-                  Learn More
+                <Button size="lg" variant="outline" className="rounded-full px-8" asChild>
+                  <a href="https://www.dreamplaypianos.com/product-information" target="_blank" rel="noopener noreferrer">
+                    Learn More
+                  </a>
                 </Button>
               </div>
             </div>
@@ -179,7 +235,7 @@ export function RecommendationSection({ profile }: RecommendationSectionProps) {
                 <span className="text-muted-foreground line-through">$1,099</span>
               </div>
               <p className="text-sm text-accent font-medium mb-4">Save $550 today</p>
-              
+
               <div className="pt-4 border-t border-border space-y-2 text-sm text-muted-foreground">
                 <p className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-accent" />
@@ -208,7 +264,7 @@ export function RecommendationSection({ profile }: RecommendationSectionProps) {
               <div>
                 <h4 className="text-lg font-semibold text-background mb-1">Growth-Friendly Upgrade Path</h4>
                 <p className="text-background/70 text-sm">
-                  When your child outgrows the DS5.5, exchange it for a DS6.0 and only pay shipping costs. 
+                  When your child outgrows the DS5.5, exchange it for a DS6.0 and only pay shipping costs.
                   We want their keyboard to grow with them.
                 </p>
               </div>
@@ -219,14 +275,24 @@ export function RecommendationSection({ profile }: RecommendationSectionProps) {
         {/* Alternative Recommendations */}
         <div className="grid md:grid-cols-2 gap-6">
           <div className="bg-background/10 rounded-2xl p-6 border border-background/20">
+            <div className="relative w-full aspect-[16/9] mb-4 rounded-xl overflow-hidden bg-background/5">
+              <Image
+                src={getProductImage(recommendation.alternative1.model)}
+                alt={recommendation.alternative1.model}
+                fill
+                className="object-contain p-3"
+              />
+            </div>
             <p className="text-sm text-background/60 mb-2">Also Consider</p>
             <h4 className="text-xl font-semibold text-background mb-1">
               {recommendation.alternative1.model}
             </h4>
             <p className="text-sm text-background/60 mb-3">{recommendation.alternative1.name}</p>
             <p className="text-background/80 text-sm mb-4">{recommendation.alternative1.reason}</p>
-            <Button variant="secondary" size="sm" className="rounded-full">
-              Learn More
+            <Button variant="secondary" size="sm" className="rounded-full" asChild>
+              <a href="https://www.dreamplaypianos.com/product-information" target="_blank" rel="noopener noreferrer">
+                Learn More
+              </a>
             </Button>
           </div>
 
@@ -234,6 +300,14 @@ export function RecommendationSection({ profile }: RecommendationSectionProps) {
             "rounded-2xl p-6 border",
             "bg-background text-foreground border-background"
           )}>
+            <div className="relative w-full aspect-[16/9] mb-4 rounded-xl overflow-hidden bg-muted">
+              <Image
+                src={getProductImage(recommendation.alternative2.model)}
+                alt={recommendation.alternative2.model}
+                fill
+                className="object-contain p-3"
+              />
+            </div>
             <div className="flex items-center gap-2 mb-2">
               <p className="text-sm text-muted-foreground">Most Popular</p>
               <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-accent text-accent-foreground">
@@ -245,9 +319,11 @@ export function RecommendationSection({ profile }: RecommendationSectionProps) {
             </h4>
             <p className="text-sm text-muted-foreground mb-3">{recommendation.alternative2.name}</p>
             <p className="text-muted-foreground text-sm mb-4">{recommendation.alternative2.reason}</p>
-            <Button size="sm" className="rounded-full">
-              View Bundle
-              <ArrowRight className="ml-2 w-3 h-3" />
+            <Button size="sm" className="rounded-full" asChild>
+              <a href="https://www.dreamplaypianos.com/customize" target="_blank" rel="noopener noreferrer">
+                View Bundle
+                <ArrowRight className="ml-2 w-3 h-3" />
+              </a>
             </Button>
           </div>
         </div>
@@ -255,7 +331,7 @@ export function RecommendationSection({ profile }: RecommendationSectionProps) {
         {/* Confidence Message */}
         <div className="text-center mt-16 pt-8 border-t border-background/20">
           <p className="text-background/60 text-sm max-w-xl mx-auto">
-            Not 100% sure? No problem. We offer hassle-free exchanges and a flexible return policy. 
+            Not 100% sure? No problem. We offer hassle-free exchanges and a flexible return policy.
             Your funds are held in escrow and fully refundable until your keyboard ships.
           </p>
         </div>

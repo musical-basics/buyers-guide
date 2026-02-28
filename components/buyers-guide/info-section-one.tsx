@@ -8,11 +8,11 @@ interface InfoSectionOneProps {
 
 export function InfoSectionOne({ buyingFor }: InfoSectionOneProps) {
   return (
-    <section className="py-16 px-6 bg-muted/50">
-      <div className="max-w-5xl mx-auto">
+    <section className="py-16 px-6">
+      <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <h3 className="text-2xl sm:text-3xl font-semibold text-foreground mb-4">
-            {buyingFor === "someone-else" 
+            {buyingFor === "someone-else"
               ? "A Gift That Truly Fits"
               : "Why Size Matters in Piano"
             }
@@ -34,7 +34,7 @@ export function InfoSectionOne({ buyingFor }: InfoSectionOneProps) {
               Research-Backed
             </h4>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Decades of peer-reviewed studies show that properly sized keyboards 
+              Decades of peer-reviewed studies show that properly sized keyboards
               reduce strain and improve performance.
             </p>
           </div>
@@ -47,7 +47,7 @@ export function InfoSectionOne({ buyingFor }: InfoSectionOneProps) {
               Comfort First
             </h4>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Playing should feel natural. The right keyboard size eliminates 
+              Playing should feel natural. The right keyboard size eliminates
               unnecessary stretching and tension in your hands.
             </p>
           </div>
@@ -60,7 +60,7 @@ export function InfoSectionOne({ buyingFor }: InfoSectionOneProps) {
               Faster Progress
             </h4>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              When your hands fit the keys, you can focus on music—not struggling 
+              When your hands fit the keys, you can focus on music—not struggling
               to reach the notes.
             </p>
           </div>

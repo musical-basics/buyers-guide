@@ -16,14 +16,14 @@ export function InfoSectionThree({ handSize, demographic }: InfoSectionThreeProp
   const model = getRecommendedModel()
 
   return (
-    <section className="py-16 px-6 bg-muted/50">
-      <div className="max-w-5xl mx-auto">
+    <section className="py-16 px-6">
+      <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <h3 className="text-2xl sm:text-3xl font-semibold text-foreground mb-4">
             What the Right Fit Unlocks
           </h3>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Based on your answers, here&apos;s how the <strong className="text-foreground">{model}</strong> could 
+            Based on your answers, here&apos;s how the <strong className="text-foreground">{model}</strong> could
             transform your playing experience.
           </p>
         </div>
@@ -32,7 +32,7 @@ export function InfoSectionThree({ handSize, demographic }: InfoSectionThreeProp
           {/* Reach Comparison */}
           <div className="bg-card rounded-3xl p-8 border border-border">
             <h4 className="text-lg font-semibold text-foreground mb-6">Reach Capability</h4>
-            
+
             <div className="space-y-6">
               <div>
                 <div className="flex justify-between items-center mb-2">
@@ -42,7 +42,7 @@ export function InfoSectionThree({ handSize, demographic }: InfoSectionThreeProp
                   </span>
                 </div>
                 <div className="h-3 bg-muted rounded-full overflow-hidden">
-                  <div 
+                  <div
                     className="h-full bg-muted-foreground rounded-full"
                     style={{ width: handSize === "large" ? "100%" : handSize === "average" ? "90%" : "80%" }}
                   />
@@ -68,7 +68,7 @@ export function InfoSectionThree({ handSize, demographic }: InfoSectionThreeProp
           {/* Benefits Grid */}
           <div className="bg-card rounded-3xl p-8 border border-border">
             <h4 className="text-lg font-semibold text-foreground mb-6">Key Benefits</h4>
-            
+
             <div className="grid grid-cols-2 gap-4">
               <div className="p-4 rounded-xl bg-muted">
                 <div className="text-2xl font-bold text-foreground mb-1">-40%</div>
@@ -103,8 +103,8 @@ export function InfoSectionThree({ handSize, demographic }: InfoSectionThreeProp
             <div className="flex-1">
               <h4 className="font-semibold text-foreground mb-1">Research-Backed Design</h4>
               <p className="text-sm text-muted-foreground">
-                Players report <strong className="text-foreground">relief from pain, faster technical progress, 
-                and greater comfort</strong> when they move to keyboards that match their hand span.
+                Players report <strong className="text-foreground">relief from pain, faster technical progress,
+                  and greater comfort</strong> when they move to keyboards that match their hand span.
               </p>
             </div>
           </div>

@@ -1,6 +1,8 @@
 "use client"
 
 import { useState } from "react"
+import { useTheme } from "next-themes"
+import { Moon, Sun } from "lucide-react"
 import { HeroSection } from "@/components/buyers-guide/hero-section"
 import { QuestionOne } from "@/components/buyers-guide/question-one"
 import { InfoSectionOne } from "@/components/buyers-guide/info-section-one"
@@ -11,6 +13,7 @@ import { InfoSectionThree } from "@/components/buyers-guide/info-section-three"
 import { QuestionFour } from "@/components/buyers-guide/question-four"
 import { RecommendationSection } from "@/components/buyers-guide/recommendation-section"
 import { Footer } from "@/components/buyers-guide/footer"
+import { Button } from "@/components/ui/button"
 
 export type UserProfile = {
   buyingFor: "myself" | "someone-else" | null
@@ -27,6 +30,7 @@ export default function BuyersGuidePage() {
     handSize: null,
     goal: null,
   })
+  const { theme, setTheme } = useTheme()
 
   const updateProfile = (key: keyof UserProfile, value: string) => {
     setProfile((prev) => ({ ...prev, [key]: value }))
@@ -49,8 +53,22 @@ export default function BuyersGuidePage() {
 
   return (
     <main className="min-h-screen bg-background">
+      {/* Dark mode toggle */}
+      <div className="fixed top-4 right-4 z-50">
+        <Button
+          variant="outline"
+          size="icon"
+          className="rounded-full w-10 h-10 bg-background/80 backdrop-blur-sm border-border shadow-lg"
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+        >
+          <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+          <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <span className="sr-only">Toggle theme</span>
+        </Button>
+      </div>
+
       <HeroSection onStart={startGuide} />
-      
+
       {currentStep >= 1 && (
         <QuestionOne
           selected={profile.buyingFor}

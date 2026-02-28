@@ -227,7 +227,8 @@ export default function BuyersGuidePage() {
         </div>
       </section>
 
-      {/* Questions and Info sections — alternating backgrounds */}
+      {/* Questions and Info sections — alternating backgrounds per group */}
+      {/* Q1 group — gray */}
       {currentStep >= 1 && (
         <div className="bg-muted/50">
           <QuestionOne
@@ -240,61 +241,53 @@ export default function BuyersGuidePage() {
         </div>
       )}
 
+      {/* Q2 group — white */}
       {currentStep >= 2 && (
-        <>
-          <div className="bg-background">
-            <InfoSectionOne buyingFor={profile.buyingFor} />
-          </div>
-          <div className="bg-muted/50">
-            <QuestionTwo
-              selected={profile.demographic}
-              buyingFor={profile.buyingFor}
-              onSelect={(value) => {
-                updateProfile("demographic", value)
-                nextStep()
-              }}
-            />
-          </div>
-        </>
-      )}
-
-      {currentStep >= 3 && (
-        <>
-          <div className="bg-background">
-            <InfoSectionTwo demographic={profile.demographic} />
-          </div>
-          <div className="bg-muted/50">
-            <QuestionThree
-              selected={profile.handSize}
-              demographic={profile.demographic}
-              onSelect={(value) => {
-                updateProfile("handSize", value)
-                nextStep()
-              }}
-            />
-          </div>
-        </>
-      )}
-
-      {currentStep >= 4 && (
-        <>
-          <div className="bg-background">
-            <InfoSectionThree handSize={profile.handSize} demographic={profile.demographic} />
-          </div>
-          <div className="bg-muted/50">
-            <QuestionFour
-              selected={profile.goal}
-              onSelect={(value) => {
-                updateProfile("goal", value)
-                nextStep()
-              }}
-            />
-          </div>
-        </>
-      )}
-
-      {currentStep >= 5 && (
         <div className="bg-background">
+          <InfoSectionOne buyingFor={profile.buyingFor} />
+          <QuestionTwo
+            selected={profile.demographic}
+            buyingFor={profile.buyingFor}
+            onSelect={(value) => {
+              updateProfile("demographic", value)
+              nextStep()
+            }}
+          />
+        </div>
+      )}
+
+      {/* Q3 group — gray */}
+      {currentStep >= 3 && (
+        <div className="bg-muted/50">
+          <InfoSectionTwo demographic={profile.demographic} />
+          <QuestionThree
+            selected={profile.handSize}
+            demographic={profile.demographic}
+            onSelect={(value) => {
+              updateProfile("handSize", value)
+              nextStep()
+            }}
+          />
+        </div>
+      )}
+
+      {/* Q4 group — white */}
+      {currentStep >= 4 && (
+        <div className="bg-background">
+          <InfoSectionThree handSize={profile.handSize} demographic={profile.demographic} />
+          <QuestionFour
+            selected={profile.goal}
+            onSelect={(value) => {
+              updateProfile("goal", value)
+              nextStep()
+            }}
+          />
+        </div>
+      )}
+
+      {/* Recommendation — gray */}
+      {currentStep >= 5 && (
+        <div className="bg-muted/50">
           <RecommendationSection profile={profile} />
         </div>
       )}

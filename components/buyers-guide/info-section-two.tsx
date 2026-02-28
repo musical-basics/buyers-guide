@@ -1,9 +1,105 @@
 "use client"
 
+import { useState, useMemo } from "react"
 import { RefreshCw } from "lucide-react"
+import { Slider } from "@/components/ui/slider"
 
 interface InfoSectionTwoProps {
   demographic: "adult-female" | "adult-male" | "child" | null
+}
+
+function getHandSpanFeedback(value: number) {
+  if (value < 7.6) {
+    return {
+      label: "Too small for standard",
+      color: "bg-red-500",
+      textColor: "text-red-600",
+      recommendation: "DS5.5",
+      description: "A reduced-size keyboard would significantly improve comfort and technique.",
+    }
+  }
+  if (value < 8.5) {
+    return {
+      label: "Tight on standard",
+      color: "bg-amber-500",
+      textColor: "text-amber-600",
+      recommendation: "DS6.0",
+      description: "You'd benefit from slightly narrower keys for relaxed, accurate playing.",
+    }
+  }
+  return {
+    label: "Comfortable on standard",
+    color: "bg-emerald-500",
+    textColor: "text-emerald-600",
+    recommendation: "Standard (6.5)",
+    description: "Standard key width should work well for your hand size.",
+  }
+}
+
+function HandSpanSliderCard({ stat, statLabel }: { stat: string; statLabel: string }) {
+  const [handSpan, setHandSpan] = useState(7.5)
+  const feedback = useMemo(() => getHandSpanFeedback(handSpan), [handSpan])
+
+  // Calculate percentage position for visual fill (6" = 0%, 10" = 100%)
+  const fillPercent = ((handSpan - 6) / (10 - 6)) * 100
+
+  return (
+    <div className="bg-card rounded-3xl p-8 border border-border">
+      {/* Stat header */}
+      <div className="text-center mb-6">
+        <div className="text-5xl sm:text-6xl font-bold text-foreground mb-2">{stat}</div>
+        <p className="text-muted-foreground text-sm">{statLabel}</p>
+      </div>
+
+      {/* Interactive slider section */}
+      <div className="space-y-5">
+        <div className="text-center">
+          <div className="text-3xl font-bold text-foreground mb-1">{handSpan.toFixed(1)}&quot;</div>
+          <p className="text-xs text-muted-foreground">Drag to set your hand span</p>
+        </div>
+
+        {/* Visual fill bar */}
+        <div className="relative h-3 bg-muted rounded-full overflow-hidden">
+          <div
+            className={`absolute inset-y-0 left-0 rounded-full transition-all duration-150 ${feedback.color}`}
+            style={{ width: `${fillPercent}%` }}
+          />
+        </div>
+
+        {/* Radix slider */}
+        <Slider
+          min={6}
+          max={10}
+          step={0.1}
+          value={[handSpan]}
+          onValueChange={([v]) => setHandSpan(v)}
+          className="w-full"
+        />
+
+        {/* Range labels */}
+        <div className="flex justify-between text-xs text-muted-foreground">
+          <span>6&quot;</span>
+          <span>7&quot;</span>
+          <span>8&quot;</span>
+          <span>9&quot;</span>
+          <span>10&quot;</span>
+        </div>
+
+        {/* Dynamic feedback */}
+        <div className="rounded-2xl bg-muted/70 p-4 text-center space-y-2 transition-all duration-200">
+          <span
+            className={`inline-block px-3 py-1 text-xs font-semibold rounded-full text-white ${feedback.color}`}
+          >
+            {feedback.label}
+          </span>
+          <p className="text-sm text-muted-foreground">{feedback.description}</p>
+          <p className="text-sm font-medium text-foreground">
+            Recommended: <span className={feedback.textColor}>{feedback.recommendation}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export function InfoSectionTwo({ demographic }: InfoSectionTwoProps) {
@@ -17,42 +113,22 @@ export function InfoSectionTwo({ demographic }: InfoSectionTwoProps) {
                 The Hidden Barrier for Women Pianists
               </h3>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                Standard keyboards were designed over 150 years ago based on a narrow 
-                range of hand sizes—primarily those of adult men. Today, this one-size-fits-all 
+                Standard keyboards were designed over 150 years ago based on a narrow
+                range of hand sizes—primarily those of adult men. Today, this one-size-fits-all
                 approach holds back the majority of pianists.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                Studies note that <strong className="text-foreground">internationally acclaimed women 
-                pianists tend to have larger-than-average hands</strong>, which aligns with a repertoire 
-                that often expects very wide reaches. This suggests that hand size, not talent, 
+                Studies note that <strong className="text-foreground">internationally acclaimed women
+                  pianists tend to have larger-than-average hands</strong>, which aligns with a repertoire
+                that often expects very wide reaches. This suggests that hand size, not talent,
                 may be filtering who succeeds.
               </p>
             </div>
 
-            <div className="bg-card rounded-3xl p-8 border border-border">
-              <div className="text-center mb-8">
-                <div className="text-6xl font-bold text-foreground mb-2">87%</div>
-                <p className="text-muted-foreground">of women have hands smaller than what standard keyboards expect</p>
-              </div>
-              
-              <div className="relative h-8 bg-muted rounded-full overflow-hidden mb-4">
-                <div className="absolute inset-y-0 left-0 w-[87%] bg-accent rounded-full flex items-center justify-end pr-3">
-                  <span className="text-xs font-medium text-accent-foreground">Too small</span>
-                </div>
-              </div>
-              
-              <div className="flex justify-between text-sm text-muted-foreground">
-                <span>Hand span under 8.5&quot;</span>
-                <span className="text-foreground font-medium">Comfortable</span>
-              </div>
-
-              <div className="mt-8 pt-8 border-t border-border">
-                <p className="text-sm text-muted-foreground text-center">
-                  <strong className="text-foreground">8.5 inches</strong> is the minimum hand span needed 
-                  to play a standard keyboard comfortably.
-                </p>
-              </div>
-            </div>
+            <HandSpanSliderCard
+              stat="87%"
+              statLabel="of women have hands smaller than what standard keyboards expect"
+            />
           </div>
         </div>
       </section>
@@ -69,41 +145,21 @@ export function InfoSectionTwo({ demographic }: InfoSectionTwoProps) {
                 Hand Size Varies More Than You Think
               </h3>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                While men typically have larger hands than women, there&apos;s enormous 
-                variation—from below 7 inches to above 10 inches. Many adult men have 
+                While men typically have larger hands than women, there&apos;s enormous
+                variation—from below 7 inches to above 10 inches. Many adult men have
                 hand spans around 8 inches, which benefits significantly from the DS6.0.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                The assumption that &quot;standard&quot; means &quot;fits everyone&quot; has held back 
-                countless pianists. <strong className="text-foreground">Finding the right fit isn&apos;t 
-                about weakness—it&apos;s about optimization.</strong>
+                The assumption that &quot;standard&quot; means &quot;fits everyone&quot; has held back
+                countless pianists. <strong className="text-foreground">Finding the right fit isn&apos;t
+                  about weakness—it&apos;s about optimization.</strong>
               </p>
             </div>
 
-            <div className="bg-card rounded-3xl p-8 border border-border">
-              <div className="text-center mb-8">
-                <div className="text-6xl font-bold text-foreground mb-2">24%</div>
-                <p className="text-muted-foreground">of men have hands smaller than what standard keyboards expect</p>
-              </div>
-              
-              <div className="relative h-8 bg-muted rounded-full overflow-hidden mb-4">
-                <div className="absolute inset-y-0 left-0 w-[24%] bg-accent rounded-full flex items-center justify-end pr-3">
-                  <span className="text-xs font-medium text-accent-foreground">Too small</span>
-                </div>
-              </div>
-              
-              <div className="flex justify-between text-sm text-muted-foreground">
-                <span>Hand span under 8.5&quot;</span>
-                <span className="text-foreground font-medium">Comfortable</span>
-              </div>
-
-              <div className="mt-8 pt-8 border-t border-border">
-                <p className="text-sm text-muted-foreground text-center">
-                  Hand span often needs to be at least <strong className="text-foreground">25-30% larger</strong> than 
-                  the octave to comfortably reach 8ths, 9ths, and 10ths.
-                </p>
-              </div>
-            </div>
+            <HandSpanSliderCard
+              stat="24%"
+              statLabel="of men have hands smaller than what standard keyboards expect"
+            />
           </div>
         </div>
       </section>
@@ -120,13 +176,13 @@ export function InfoSectionTwo({ demographic }: InfoSectionTwoProps) {
                 Growing Hands Need Growing Keyboards
               </h3>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                Children aged 7-14 typically have hand spans well under 7.6 inches. 
-                Forcing small hands onto standard-sized keys can create bad habits, 
+                Children aged 7-14 typically have hand spans well under 7.6 inches.
+                Forcing small hands onto standard-sized keys can create bad habits,
                 tension, and frustration that lasts a lifetime.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                <strong className="text-foreground">The DS5.5 is specifically designed for 
-                developing pianists</strong>, allowing them to build proper technique without 
+                <strong className="text-foreground">The DS5.5 is specifically designed for
+                  developing pianists</strong>, allowing them to build proper technique without
                 strain—and they can upgrade as they grow.
               </p>
             </div>
